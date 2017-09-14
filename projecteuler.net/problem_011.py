@@ -31,5 +31,39 @@ grid = [[ 8,  2, 22, 97, 38, 15,  0, 40,  0, 75,  4,  5,  7, 78, 52, 12, 50, 77,
 # What is the greatest product of four adjacent numbers in the same
 # direction (up, down, left, right, or diagonally) in the 20×20 grid?
 
+import functools
+import operator
+
+def product(n):
+    if len(n) == 4:
+        return functools.reduce(operator.mul, n)
+    else:
+        return 0
+
+def gen_products(grid):
+    nrows = len(grid)
+    if nrows < 1:
+         return 0
+    ncols = len(grid[0])
+    if ncols < 1:
+         return 0
+
+    for i in range(0, nrows):
+        for j in range(0, ncols):
+            numbers = tuple(grid[i + x][j] for x in range(0,4) if i+x < nrows)
+            yield product(numbers)
+
+            numbers = tuple(grid[i][j+x] for x in range(0,4) if j+x < ncols)
+            yield product(numbers)
+
+            numbers = tuple(grid[i+x][j+x] for x in range(0,4) if j+x < ncols and i+x<nrows)
+            yield product(numbers)
+
+            numbers = tuple(grid[i+x][j-x] for x in range(0,4) if j+x >= 0  and i+x < nrows)
+            yield product(numbers)
+
+def solve(problem = grid):
+    return max(gen_products(grid))
+
 if __name__ == '__main__':
-    print(__file__ + ": ***** TODO *****")
+    print(__file__ + ": %s" % solve(grid))
