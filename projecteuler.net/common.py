@@ -8,6 +8,7 @@
 # the primes. (See also our glossary page.)
 
 import math
+
 class PrimeGenerator:
     def __init__(self, lt = None, gen_step = 1_000):
         self._lt = lt
@@ -68,3 +69,17 @@ class PrimeGenerator:
 
         self._prime_series = sorted(list(set(self._prime_series) | set(numbers)))
         self._current_bound = bound
+
+# Taken from the forum
+def calculate_prime_factors(n):
+   result = []
+   d = 2
+   while d * d <= n:
+       if n % d == 0:
+           result.append(d)
+           n //= d
+       else:
+           d += 1
+   if n > 1:
+       result.append(n)
+   return result
