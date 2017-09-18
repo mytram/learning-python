@@ -5,7 +5,6 @@
 def solve():
     max_factor_of_3 = int(999 / 3)
     max_factor_of_5 = int(999 / 5)
-    max_factor_of_15 = int(999 / 15)
 
     result  = sum(i *  3 for i in range(1, 1 + max_factor_of_3))
     result += sum(i *  5 for i in range(1, 1 + max_factor_of_5) if i % 3 != 0)

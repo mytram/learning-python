@@ -9,6 +9,48 @@
 
 import math
 
+def is_prime(num):
+    # Returns True if num is a prime number, otherwise False.
+    # Note: Generally, isPrime() is slower than prime Sieve().
+    # all numbers less than 2 are not prime
+    if num < 2:
+        return False
+    # see if num is divisible by any number up to the square root of num
+    for i in range(2, int(math.sqrt(num)) + 1):
+        if num % i == 0:
+            return False
+    return True
+
+class FactorialGenerator:
+    def __init__(self):
+        self._series = [1]
+        self._index = 0
+
+    def __iter(self):
+        self._index = 0
+        return self
+
+    def __next__(self):
+        if self._index == len(self._series):
+            self._series.append(self._series[-1] * (self._index + 1))
+        self._index += 1
+        return self._series[self._index - 1]
+
+    @property
+    def number(self):
+        return self._index + 1
+
+    def get(self, f):
+        if f <= 0:
+             return 0
+        # thread unsafe
+        index = f - 1
+        nf = len(self._series)
+        while index >= nf:
+            self._series.append(self._series[-1] * (nf + 1))
+            nf += 1
+        return self._series[index]
+
 class PrimeGenerator:
     def __init__(self, lt = None, gen_step = 1_000):
         self._lt = lt
@@ -70,16 +112,19 @@ class PrimeGenerator:
         self._prime_series = sorted(list(set(self._prime_series) | set(numbers)))
         self._current_bound = bound
 
+#
+#
 # Taken from the forum
+#
 def calculate_prime_factors(n):
-   result = []
-   d = 2
-   while d * d <= n:
+    result = []
+    d = 2
+    while d * d <= n:
        if n % d == 0:
            result.append(d)
            n //= d
        else:
            d += 1
-   if n > 1:
+    if n > 1:
        result.append(n)
-   return result
+    return result
