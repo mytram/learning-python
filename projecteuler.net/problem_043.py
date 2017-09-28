@@ -23,7 +23,7 @@ def gen_pandigital():
             yield number
 
 # this turns out to be faster than functools.reduce
-def to_number(ds):
+def list_to_number(ds):
     number = 0
     for d in ds:
         number = number * 10 + d
@@ -31,7 +31,7 @@ def to_number(ds):
 
 def sub_string_divisible(digits, primes):
     for i in range(1, 8):
-        sub_number = to_number(digits[i:i+3])
+        sub_number = list_to_number(digits[i:i+3])
         if sub_number % primes[i - 1] != 0:
             return False
     return True
@@ -39,7 +39,7 @@ def sub_string_divisible(digits, primes):
 def solve():
     primes = [2, 3, 5, 7, 11, 13, 17]
 
-    return sum(to_number(pd) for pd in gen_pandigital() if sub_string_divisible(pd, primes))
+    return sum(list_to_number(pd) for pd in gen_pandigital() if sub_string_divisible(pd, primes))
 
 if __name__ == '__main__':
     print(__file__ + ':', solve())

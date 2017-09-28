@@ -9,6 +9,13 @@
 
 import math
 
+
+def l_to_i(ds):
+    number = 0
+    for d in ds:
+        number = number * 10 + d
+    return number
+
 def is_prime(num):
     # Returns True if num is a prime number, otherwise False.
     # Note: Generally, isPrime() is slower than prime Sieve().
