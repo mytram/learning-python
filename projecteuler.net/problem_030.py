@@ -12,9 +12,7 @@
 # Find the sum of all the numbers that can be written as the sum of fifth powers of their digits.
 
 def find_sum_of_fifth_powers(stop = 9 ** 5 * 7):
-    fifth_powers = {}
-    for d in range(0, 10):
-        fifth_powers[str(d)] = d ** 5
+    fifth_powers = dict((str(d), d**5) for d in range(10))
 
     for n in range(11, stop + 1):
         if sum(fifth_powers[d] for d in str(n)) == n:
