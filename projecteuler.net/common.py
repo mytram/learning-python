@@ -9,6 +9,11 @@
 
 import math
 
+def rotate(lst):
+    for _ in range(len(lst)):
+        head, *tail = lst
+        lst = tail + [head]
+        yield ''.join(lst)
 
 def l_to_i(ds):
     number = 0
