@@ -1,46 +1,33 @@
-# coding: utf-8
+# Prime permutations
+# Problem 49
+# The arithmetic sequence, 1487, 4817, 8147, in which each of the terms increases by 3330, is unusual in two ways: (i) each of the three terms are prime, and, (ii) each of the 4-digit numbers are permutations of one another.
 
-# Goldberg's other conjecture
-# Problem 46
-# It was proposed by Christian Goldbach that every odd composite number can be written as the sum of a prime and twice a square.
+# There are no arithmetic sequences made up of three 1-, 2-, or 3-digit primes, exhibiting this property, but there is one other 4-digit increasing sequence.
 
-# 9 = 7 + 2×12
-# 15 = 7 + 2×22
-# 21 = 3 + 2×32
-# 25 = 7 + 2×32
-# 27 = 19 + 2×22
-# 33 = 31 + 2×12
+# What 12-digit number do you form by concatenating the three terms in this sequence?
 
-# It turns out that the conjecture was false.
-
-# What is the smallest odd composite that cannot be written as the sum of a prime and twice a square?
-
-from common import PrimeGenerator, is_prime
-import math
-
-def refute_goldbachs_other_conjecture():
-    prime_gen = PrimeGenerator()
-    n = 33
-    while True:
-        n += 2
-        if is_prime(n):
-            continue
-        prime_gen = iter(prime_gen)
-        found = False
-        for prime in prime_gen:
-            if prime >= n: break
-            if found: break
-            for number in range(1, int(math.sqrt((n - prime)//2)) + 1):
-                part = number * number * 2
-                conjecture = prime + part
-                if conjecture == n:
-                    found = True
-                    break
-        if not found:
-            return n
+from common import PrimeGenerator
 
 def solve():
-    return refute_goldbachs_other_conjecture()
+    primes  = PrimeGenerator(lt = 10 ** 4)
+
+    perms_of_4_digits_primes = {}
+
+    for prime in primes:
+        if prime < 1000: continue
+        perm_key = ''.join(sorted(str(prime)))
+
+        if perm_key == '1478': continue
+
+        perm_primes = perms_of_4_digits_primes.get(perm_key, [])
+        perm_primes.append(prime)
+        perms_of_4_digits_primes[perm_key] = perm_primes
+
+    for _, prime_set in perms_of_4_digits_primes.items():
+        if len(prime_set) < 3: continue
+        for index in range(0, len(prime_set) - 2):
+            if prime_set[index + 1] - prime_set[index] == prime_set[index + 2] - prime_set[index + 1]:
+                return ''.join(map(str, prime_set[index:index+3]))
 
 if __name__ == '__main__':
-    print(__file__ + ": %d" % solve())
+    print(__file__ + ':', solve())
