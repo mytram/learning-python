@@ -12,58 +12,26 @@
 
 
 # @TODO: Use a generator version to get rid of recursions
-def find_combinations(numbers, total):
-    head, *tail = numbers
+def find_combinations(coins, total):
+    head, *tail = coins
     max_qty = total // head
 
     combinations = []
-    if len(tail) == 0:
-        for qty in range(0, max_qty + 1):
-            if head * qty == total:
-                combinations.append([(head, qty, head * qty)])
-        return combinations
 
     for qty in range(0, max_qty + 1):
         head_total = head * qty
-        sub_total = total - head_total
-        sub_combinations = find_combinations(tail, sub_total)
-        for sub in sub_combinations:
-            if sum(t[2] for t in sub) + head * qty == total:
-                combinations.append([(head, qty, head * qty), *sub])
+        if len(tail) == 0:
+            if head_total == total:
+                combinations.append([head])
+        else:
+            for sub in find_combinations(tail, total - head_total):
+                combinations.append([head, *sub])
 
     return combinations
-
-def gen_combinations(numbers, total):
-    #
-    # initial_total
-    sub_total = total
-    tail = numbers
-
-    while True:
-        head, *tail = tail
-        max_qty = sub_total // head
-
-        combinations = []
-        if len(tail) == 0:
-            for qty in range(0, max_qty + 1):
-                if head * qty == sub_total:
-                    combinations.append([(head, qty, head * qty)])
-                return combinations
-
-        for qty in range(0, max_qty + 1):
-            head_total = head * qty
-            sub_total = total - head_total
-            sub_combinations = find_combinations(tail, sub_total)
-            for sub in sub_combinations:
-                if sum(t[2] for t in sub) + head * qty == total:
-                    combinations.append([(head, qty, head * qty), *sub])
-
-        return combinations
 
 def solve(problem):
     coin_set = [1, 2, 5, 10, 20, 50, 100, 200]
     combinations = find_combinations(coin_set, problem)
-    # print("com: "  + str(combinations))
     return len(combinations)
 
 if __name__ == '__main__':

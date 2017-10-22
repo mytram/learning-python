@@ -11,6 +11,7 @@ def solve(problem = 20):
     primes = list(PrimeGenerator(problem + 1))
 
     for factor in range(2, problem + 1):
+
         while number % factor != 0:
             for p in primes:
                 if factor % p == 0:

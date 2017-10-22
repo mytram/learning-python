@@ -29,7 +29,7 @@ def collatz_sequence_length(n, known_length):
 
     while n > 0:
         if n % 2 == 0:
-            n = int(n/2)
+            n //= 2
         else:
             n = 3*n + 1
 

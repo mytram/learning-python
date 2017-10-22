@@ -28,7 +28,7 @@ def calculate_factors(number, prime_generator):
     while number != 1:
         prime = next(prime_generator)
         if number % prime == 0:
-            number = int(number / prime)
+            number = number // prime
             factors.append(prime)
             prime_generator = iter(prime_generator) # start from 2 again
     return factors
