@@ -6,7 +6,7 @@
 
 # How many circular primes are there below one million?
 
-from common import PrimeGenerator, l_to_i, is_prime
+from common import PrimeGenerator, lst_to_int, is_prime
 
 def rotate(lst):
     for _ in range(len(lst)):

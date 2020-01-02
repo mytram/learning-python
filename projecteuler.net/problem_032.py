@@ -10,7 +10,7 @@
 
 # HINT: Some products can be obtained in more than one way so be sure to only include it once in your sum.
 
-from common import l_to_i
+from common import lst_to_int
 
 import itertools
 #

@@ -2,4 +2,4 @@
 
 export PYTHONPATH=$PYTHONPATH:./libs
 
-ls problem_*py | xargs -n1 python
+python problem_$1.py

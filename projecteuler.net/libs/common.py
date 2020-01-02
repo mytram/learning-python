@@ -9,16 +9,18 @@
 
 import math
 
-def l_to_i(ds):
+def lst_to_int(ds):
     number = 0
     for d in ds:
         number = number * 10 + d
     return number
 
 def is_prime(num):
-    # Returns True if num is a prime number, otherwise False.
-    # Note: Generally, isPrime() is slower than prime Sieve().
-    # all numbers less than 2 are not prime
+    """
+Returns True if num is a prime number, otherwise False.
+Note: Generally, isPrime() is slower than prime Sieve().
+all numbers less than 2 are not prime
+"""
     if num < 2:
         return False
     # see if num is divisible by any number up to the square root of num
